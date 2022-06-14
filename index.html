@@ -24,16 +24,19 @@
         <div class="lg:col-span-6 lg:col-start-2">
             <section class="flex items-center justify-between gap-6 mt-4 mb-8 lg:mb-0">
                 <h1 class="text-lg text-white font-bold lg:mb-5 lg:text-2xl">Real Estate Proceeds Calculator</h1>
-                <button
-                    type="button"
-                    :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
-                    class="flex lg:hidden transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white p-3 rounded-lg"
-                    @click="$clipboard(shareLink), buttonAnimate()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    <span>Share</span>
-                </button>
+                <div class="relative">
+                    <button
+                        type="button"
+                        :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
+                        class="flex lg:hidden transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white p-3 rounded-lg"
+                        @click="$clipboard(shareLink), buttonAnimate()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <span>Share</span>
+                    </button>
+                    <span :class="showToolTip ? 'block lg:hidden' : 'hidden'" class="absolute bottom-0 right-0 bg-sky-700 text-sky-300 py-1 px-2 rounded-md -mb-10">Copied!</span>
+                </div>
             </section>
 
 
@@ -126,6 +129,7 @@
                         </svg>
                         <span>Share</span>
                     </button>
+                    <span :class="showToolTip ? 'hidden lg:inline-block' : 'hidden'" class="bg-sky-700 text-sky-300 py-1 px-2 rounded-md mt-4">Copied!</span>
                 </div>
 
                 <div class="mt-8 mb-10 lg:mt-auto lg:opacity-50 lg:hover:opacity-100 transitio-opacity">
@@ -255,10 +259,13 @@
             },
 
             isClicked: false,
+            showToolTip: false,
             buttonAnimate() {
                 this.isClicked = true;
+                this.showToolTip = true;
                 here = this;
                 setTimeout(() => { here.isClicked = false }, 200);
+                setTimeout(() => { here.showToolTip = false }, 1000);
             },
 
             updateShareLink() {
