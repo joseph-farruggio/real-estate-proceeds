@@ -105,7 +105,7 @@
 
 
         <section class="mt-8 lg:col-span-4 lg:col-start-8 lg:h-full lg:mt-10 relative">
-            <div class="sticky top-6">
+            <div class="sticky lg:min-h-[calc(100vh_-_100px)] top-6 lg:flex lg:flex-col">
                 <h2 class="text-lg text-white mb-2 font-bold">Totals</h2>
 
                 <div class="divide-y divide-slate-700">
@@ -115,16 +115,29 @@
                     <p class="py-6 text-white"><b class="block text-sm font-medium text-sky-300">Proceeds</b> <span x-money="getProceeds" data-lang="en-US" data-currency="USD"></span></p>
                 </div>
 
-                <button
-                    type="button"
-                    :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
-                    class="hidden lg:flex transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white mt-8 p-3 rounded-lg"
-                    @click="$clipboard(shareLink), buttonAnimate()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                    <span>Share</span>
-                </button>
+                <div class="lg:mb-8">
+                    <button
+                        type="button"
+                        :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
+                        class="hidden lg:flex transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white mt-8 p-3 rounded-lg"
+                        @click="$clipboard(shareLink), buttonAnimate()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <span>Share</span>
+                    </button>
+                </div>
+
+                <div class="mt-8 mb-10 lg:mt-auto lg:opacity-50 lg:hover:opacity-100 transitio-opacity">
+
+                    <a href="https://joeyfarruggio.com" class="no-underline flex items-center gap-4 mt-2 text-white">
+                        <img src="https://en.gravatar.com/userimage/153118977/a42656936e94cdc7b56c59affea5db45.jpeg" class="h-12 w-12 rounded-full" alt="">
+                        <p class="text-white">
+                            <span class="text-sky-500">Made by</span> <br>
+                            Joey Farruggio
+                        </p>
+                    </a>
+                </div>
             </div>
 
         </section>
