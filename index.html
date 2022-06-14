@@ -222,12 +222,13 @@
                 let readOnlyAttr = (readOnly) ? 'readonly' : '';
                 let cursorClass = (readOnly) ? 'cursor-not-allowed' : '';
                 return `
-                    <div>
+                    <div class="">
                         <label for="${name}" class="block text-sm font-medium text-sky-300">${label}</label>
-                        <div class="mt-1 flex rounded-md shadow-sm">
+                        <div class="mt-1 flex rounded-md shadow-sm overflow-hidden rounded-md">
                             <span class="inline-flex items-center px-3 py-2 rounded-l-md border border-r-0 border-slate-700 bg-slate-700 text-sky-200 text-sm">$</span>
                             <input id="${name}" ${readOnlyAttr} min="0" placeholder="0.00" 
                             x-model.number="${val}" 
+                            inputmode="numeric"
                             x-on:keyup.debounce="clearParams(), updateShareLink(), preventNull($el)"
                             class="${cursorClass} border-none focus:ring-slate-500 focus:border-slate-500 outline-none flex-1 block items-center pr-3 py-2 rounded-none rounded-r-md  bg-slate-700 text-slate-50 text-sm">
                         </div>
@@ -255,9 +256,11 @@
             },
 
             preventNull(el) {
-                console.log(el._x_model.get());
-                val = (el._x_model.get() == "" || el._x_model.get() == null ? 0 : el._x_model.get());
-                el._x_model.set(val)
+                setTimeout(() => {
+                    val = (el._x_model.get() == "" || el._x_model.get() == null ? 0 : el._x_model.get());
+                    el._x_model.set(val)
+                }, 2500);
+
             },
 
             init() {
