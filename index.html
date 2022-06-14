@@ -20,96 +20,111 @@
 
 <body class="bg-slate-900 p-2">
 
-    <div x-data="app" class="max-w-xl mx-auto bg-slate-800 px-4 pt-5 mt-4 mb-8 rounded-lg shadow-lg shadow-back">
-        <button
-            type="button"
-            :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
-            class="transition-all scale-100 hover:scale-110 hover:bg-slate-500 flex items-center gap-3 bg-slate-700 text-white fixed top-0 right-0 mt-8 mr-8 p-3 rounded-lg"
-            @click="$clipboard(shareLink), buttonAnimate()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            <span>Share</span>
-        </button>
-        <h1 class="text-lg text-white font-bold mb-5">Real Estate Proceeds Calculator</h1>
+    <div x-data="app" class="container mx-auto lg:grid lg:grid-cols-12 lg: gap-8">
+        <div class="lg:col-span-6 lg:col-start-2">
+            <button
+                type="button"
+                :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
+                class="flex lg:hidden transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white fixed top-0 right-0 mt-8 mr-8 p-3 rounded-lg"
+                @click="$clipboard(shareLink), buttonAnimate()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span>Share</span>
+            </button>
 
-        <hr class="-mx-4 mb-8 border-slate-600">
+            <h1 class="text-lg text-white font-bold mb-5">Real Estate Proceeds Calculator</h1>
 
-        <section>
-            <div x-html="inputTemplate('Sale Price', 'salePrice', 'salePrice')"></div>
-        </section>
 
-        <section class="mt-8">
-            <h2 class="text-base text-white mb-4 font-bold">Debt</h2>
+            <section class="bg-slate-800 px-4 py-5 mt-4 mb-8 rounded-lg shadow-lg shadow-back">
+                <div x-html="inputTemplate('Sale Price', 'salePrice', 'salePrice')"></div>
+            </section>
 
-            <div class="space-y-8">
-                <div x-html="inputTemplate('Mortgage', 'mortgage', 'debt.mortgage')"></div>
-                <div x-html="inputTemplate('Second Mortgage', 'secondMortgage', 'debt.secondMortgage')"></div>
-                <div x-html="inputTemplate('Home Equity Loan Balance', 'homeEquityLoan', 'debt.homeEquityLoan')"></div>
-            </div>
 
-            <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Total Debt:</b> <span x-money="totalDebt" data-lang="en-US"
-                    data-currency="USD"></span></p>
-        </section>
+            <section class="mt-8 bg-slate-800 px-4 py-5 mt-4 mb-8 rounded-lg shadow-lg shadow-back">
+                <h2 class="text-base text-white mb-4 font-bold">Debt</h2>
 
-        <hr class="-mx-4 my-8 border-slate-600">
-
-        <section class="mb-4">
-            <h2 class="text-base text-white mb-4 font-bold">Fees</h2>
-
-            <div class="grid grid-cols-2 gap-6 mt-8">
-                <div class="col-span-2">
-                    <div x-html="inputTemplate('Title Policy', 'titlePolicy', 'titlePolicy', true)"></div>
+                <div class="space-y-8">
+                    <div x-html="inputTemplate('Mortgage', 'mortgage', 'debt.mortgage')"></div>
+                    <div x-html="inputTemplate('Second Mortgage', 'secondMortgage', 'debt.secondMortgage')"></div>
+                    <div x-html="inputTemplate('Home Equity Loan Balance', 'homeEquityLoan', 'debt.homeEquityLoan')"></div>
                 </div>
 
-                <div>
-                    <label for="closingMonth" class="block  text-sm font-medium text-sky-300">Closing Month</label>
-                    <select
-                        id="closingMonth"
-                        x-model.number="fees.closingMonth"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base text-white bg-slate-700 border-none focus:ring-slate-500 focus:border-slate-500 outline-none sm:text-sm rounded-md">
-                        <option value="1">Jan</option>
-                        <option value="2">Feb</option>
-                        <option value="3">Mar</option>
-                        <option value="4">Apr</option>
-                        <option value="5">May</option>
-                        <option value="6">Jun</option>
-                        <option value="7">Jul</option>
-                        <option value="8">Aug</option>
-                        <option value="9">Sep</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
-                    </select>
+                <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Total Debt:</b> <span x-money="totalDebt" data-lang="en-US"
+                        data-currency="USD"></span></p>
+            </section>
+
+            <section class="bg-slate-800 px-4 py-5 mt-4 mb-8 rounded-lg shadow-lg shadow-back">
+                <h2 class="text-base text-white mb-4 font-bold">Fees</h2>
+
+                <div class="grid grid-cols-2 gap-6 mt-8">
+                    <div class="col-span-2">
+                        <div x-html="inputTemplate('Title Policy', 'titlePolicy', 'titlePolicy', true)"></div>
+                    </div>
+
+                    <div>
+                        <label for="closingMonth" class="block  text-sm font-medium text-sky-300">Closing Month</label>
+                        <select
+                            id="closingMonth"
+                            x-model.number="fees.closingMonth"
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base text-white bg-slate-700 border-none focus:ring-slate-500 focus:border-slate-500 outline-none sm:text-sm rounded-md">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">May</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Aug</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Oct</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Dec</option>
+                        </select>
+                    </div>
+
+                    <div x-html="inputTemplate('Real Estate Taxes (yearly)', 'realEstateTaxesYearly', 'fees.realEstateTaxesYearly')"></div>
+
+                    <div x-html="inputTemplate('Real Estate Taxes Paid', 'realEstateTaxes', 'realEstateTaxesPaid', true)"></div>
+
+                    <div x-html="inputTemplate('State Transfer Fee', 'stateTransfer', 'stateTransferFee', true)"></div>
+                    <div x-html="inputTemplate('Listing Broker', 'listingBroker', 'listingBrokerFee', true)"></div>
+                    <div x-html="inputTemplate('Buyer\'s Realtor Brokerage Fee', 'buyerBrokerFee', 'buyerBrokerFee',true)"></div>
+                    <div x-html="inputTemplate('Special Assessment Letters', 'specialAssessment', 'fees.specialAssessment')"></div>
+                    <div x-html="inputTemplate('Water/Sewer Prorated', 'waterSewerProrated', 'fees.waterSewerProrated')"></div>
+                    <div x-html="inputTemplate('Doc Prep', 'docPrep', 'fees.docPrep')"></div>
+                    <div x-html="inputTemplate('Recording of Mortgage Satisfaction', 'recordMortgageSat', 'fees.recordMortgageSat')"></div>
+                    <div x-html="inputTemplate('Home Warranty', 'homeWarranty', 'fees.homeWarranty')"></div>
+                    <div x-html="inputTemplate('Septic/Well/Water Inspection/Tests', 'water', 'fees.water')"></div>
+                    <div x-html="inputTemplate('Gap Insurance', 'gapInsurance', 'fees.gapInsurance')"></div>
+                    <div x-html="inputTemplate('Seller Closing Cost Assistance', 'sellerClosingCost', 'fees.sellerClosingCost')"></div>
+                </div>
+            </section>
+        </div>
+
+
+        <section class="mt-8 lg:col-span-4 lg:col-start-8 lg:h-full lg:mt-10 relative">
+            <div class="sticky top-6">
+                <h2 class="text-base text-white mb-4 font-bold">Totals</h2>
+
+                <div class="divide-y divide-slate-700">
+                    <p class="py-6 text-white"><b class="block text-sm font-medium text-sky-300">Fees</b> <span x-money="totalFees" data-lang="en-US" data-currency="USD"></span></p>
+                    <p class="py-6 text-white"><b class="block text-sm font-medium text-sky-300">Debt & Fees</b> <span x-money="totalDebtFees" data-lang="en-US" data-currency="USD"></span></p>
+                    <p class="py-6 text-white"><b class="block text-sm font-medium text-sky-300">Sale Price</b> <span x-money="getSalePrice" data-lang="en-US" data-currency="USD"></span></p>
+                    <p class="py-6 text-white"><b class="block text-sm font-medium text-sky-300">Proceeds</b> <span x-money="getProceeds" data-lang="en-US" data-currency="USD"></span></p>
                 </div>
 
-                <div x-html="inputTemplate('Real Estate Taxes (yearly)', 'realEstateTaxesYearly', 'fees.realEstateTaxesYearly')"></div>
-
-                <div x-html="inputTemplate('Real Estate Taxes Paid', 'realEstateTaxes', 'realEstateTaxesPaid', true)"></div>
-
-                <div x-html="inputTemplate('State Transfer Fee', 'stateTransfer', 'stateTransferFee', true)"></div>
-                <div x-html="inputTemplate('Listing Broker', 'listingBroker', 'listingBrokerFee', true)"></div>
-                <div x-html="inputTemplate('Buyer\'s Realtor Brokerage Fee', 'buyerBrokerFee', 'buyerBrokerFee',true)"></div>
-                <div x-html="inputTemplate('Special Assessment Letters', 'specialAssessment', 'fees.specialAssessment')"></div>
-                <div x-html="inputTemplate('Water/Sewer Prorated', 'waterSewerProrated', 'fees.waterSewerProrated')"></div>
-                <div x-html="inputTemplate('Doc Prep', 'docPrep', 'fees.docPrep')"></div>
-                <div x-html="inputTemplate('Recording of Mortgage Satisfaction', 'recordMortgageSat', 'fees.recordMortgageSat')"></div>
-                <div x-html="inputTemplate('Home Warranty', 'homeWarranty', 'fees.homeWarranty')"></div>
-                <div x-html="inputTemplate('Septic/Well/Water Inspection/Tests', 'water', 'fees.water')"></div>
-                <div x-html="inputTemplate('Gap Insurance', 'gapInsurance', 'fees.gapInsurance')"></div>
-                <div x-html="inputTemplate('Seller Closing Cost Assistance', 'sellerClosingCost', 'fees.sellerClosingCost')"></div>
+                <button
+                    type="button"
+                    :class="isClicked ? 'ring ring-slate-500' : 'ring-0'"
+                    class="hidden lg:flex transition-all scale-100 hover:scale-110 hover:bg-slate-500 items-center gap-3 bg-slate-700 text-white mt-8 p-3 rounded-lg"
+                    @click="$clipboard(shareLink), buttonAnimate()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    <span>Share</span>
+                </button>
             </div>
-        </section>
-
-        <hr class="-mx-4 my-8 border-slate-600">
-
-        <section class="mt-8">
-            <h2 class="text-base text-white mb-4 font-bold">Totals</h2>
-
-            <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Fees:</b> <span x-money="totalFees" data-lang="en-US" data-currency="USD"></span></p>
-            <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Debt & Fees:</b> <span x-money="totalDebtFees" data-lang="en-US" data-currency="USD"></span></p>
-            <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Sale Price:</b> <span x-money="getSalePrice" data-lang="en-US" data-currency="USD"></span></p>
-            <p class="mt-8 px-4 py-6 rounded-md bg-slate-700 text-white"><b>Proceeds:</b> <span x-money="getProceeds" data-lang="en-US" data-currency="USD"></span></p>
 
         </section>
     </div>
