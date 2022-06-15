@@ -61,11 +61,7 @@
             <section class="bg-slate-800 px-4 py-5 mt-4 mb-8 rounded-lg shadow-lg shadow-back">
                 <h2 class="text-base text-white mb-4 font-bold">Fees</h2>
 
-                <div class="grid grid-cols-2 gap-6 mt-8">
-                    <div class="col-span-2">
-                        <div x-html="inputTemplate('Title Policy', 'titlePolicy', 'titlePolicy', true)"></div>
-                    </div>
-
+                <div class="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-6 mt-8">
                     <div>
                         <label for="closingMonth" class="block  text-sm font-medium text-sky-300">Closing Month</label>
                         <select
@@ -89,11 +85,12 @@
 
                     <div x-html="inputTemplate('Real Estate Taxes (yearly)', 'realEstateTaxesYearly', 'fees.realEstateTaxesYearly')"></div>
 
-                    <div x-html="inputTemplate('Real Estate Taxes Paid', 'realEstateTaxes', 'realEstateTaxesPaid', true)"></div>
+                    <div x-html="calculation('Title Policy', titlePolicy)"></div>
+                    <div x-html="calculation('State Transfer Fee', stateTransferFee)"></div>
+                    <div x-html="calculation('Listing Broker', listingBrokerFee)"></div>
+                    <div x-html="calculation('Buyer\'s Realtor Brokerage Fee', buyerBrokerFee)"></div>
 
-                    <div x-html="inputTemplate('State Transfer Fee', 'stateTransfer', 'stateTransferFee', true)"></div>
-                    <div x-html="inputTemplate('Listing Broker', 'listingBroker', 'listingBrokerFee', true)"></div>
-                    <div x-html="inputTemplate('Buyer\'s Realtor Brokerage Fee', 'buyerBrokerFee', 'buyerBrokerFee',true)"></div>
+
                     <div x-html="inputTemplate('Special Assessment Letters', 'specialAssessment', 'fees.specialAssessment')"></div>
                     <div x-html="inputTemplate('Water/Sewer Prorated', 'waterSewerProrated', 'fees.waterSewerProrated')"></div>
                     <div x-html="inputTemplate('Doc Prep', 'docPrep', 'fees.docPrep')"></div>
@@ -243,12 +240,27 @@
                         <label for="${name}" class="block text-sm font-medium text-sky-300">${label}</label>
                         <div class="mt-1 flex rounded-md shadow-sm overflow-hidden rounded-md">
                             <span class="inline-flex items-center px-3 py-2 rounded-l-md border border-r-0 border-slate-700 bg-slate-700 text-sky-200 text-sm">$</span>
-                            <input id="${name}" ${readOnlyAttr} min="0" placeholder="0.00" 
-                            x-model.number="${val}" 
-                            inputmode="numeric"
-                            x-on:keyup.debounce="clearParams(), updateShareLink(), preventNull($el)"
-                            class="${cursorClass} border-none focus:ring-slate-500 focus:border-slate-500 outline-none flex-1 block items-center pr-3 py-2 rounded-none rounded-r-md  bg-slate-700 text-slate-50 text-sm">
+                            <input 
+                                id="${name}" 
+                                ${readOnlyAttr} 
+                                min="0" 
+                                placeholder="0.00" 
+                                x-model.number="${val}" 
+                                inputmode="numeric"
+                                
+                                x-on:keyup.debounce="clearParams(), updateShareLink()"
+                                class="${cursorClass} border-none focus:ring-slate-500 focus:border-slate-500 outline-none flex-1 block items-center pr-3 py-2 rounded-none rounded-r-md  bg-slate-700 text-slate-50 text-sm">
                         </div>
+                    </div>
+                `;
+            },
+
+            calculation(label, val) {
+                return `
+                    <div class="flex items-center justify-between relative lg:flex-col lg:items-start">
+                        <span class="text-sm font-medium text-sky-300 whitespace-nowrap grow">${label}</span>
+                        <div class="h-px mx-4 w-full border-t border-dashed border-slate-700 lg:hidden"></div>
+                        <span class="text-white grow" x-money="${val} * 100" data-lang="en-US" data-currency="USD"></span>
                     </div>
                 `;
             },
