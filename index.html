@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Estate Proceeds Calculator</title>
+    <title>RPE Calculator</title>
     <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js" defer></script>
@@ -154,15 +154,7 @@
 
         </section>
 
-        <span x-show="toolTipShown" x-cloak x-text="toolTip"
-
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-90 "
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-300"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed left-0 bottom-0 bg-sky-600 w-full text-sky-100 py-4 px-4 z-20 lg:w-96 lg:rounded-md lg:mb-4 lg:mr-4 lg:left-[unset] lg:right-0"></span>
+        <span x-cloak x-bind="toolTip" class="fixed left-0 bottom-0 bg-sky-600 w-full text-sky-100 py-4 px-4 z-20 lg:w-96 lg:rounded-md lg:mb-4 lg:mr-4 lg:left-[unset] lg:right-0"></span>
     </div>
 </body>
 
@@ -292,19 +284,45 @@
             },
 
             toolTipShown: false,
-            toolTip: null,
+            toolTipText: null,
+
             showToolTip(text) {
                 this.toolTipShown = true;
                 this.toolTip = text;
-                here = this;
-                setTimeout(() => { here.toolTipShown = false }, 2000);
+                setTimeout(() => { this.toolTipShown = false }, 2000);
+            },
+
+            toolTip: {
+                ['x-show']() {
+                    return this.toolTipShown
+                },
+                ['x-text']() {
+                    return this.toolTip
+                },
+                ['x-transition:enter']() {
+                    return "transition ease-out duration-300"
+                },
+                ['x-transition:enter-start']() {
+                    return "opacity-0 scale-90 "
+                },
+                ['x-transition:enter-end']() {
+                    return "opacity-100 scale-100"
+                },
+                ['x-transition:leave']() {
+                    return "transition ease-in duration-300"
+                },
+                ['x-transition:leave-start']() {
+                    return "opacity-100 scale-100"
+                },
+                ['x-transition:leave-end']() {
+                    return "opacity-0"
+                }
             },
 
             isClicked: false,
             buttonAnimate() {
                 this.isClicked = true;
-                here = this;
-                setTimeout(() => { here.isClicked = false }, 200);
+                setTimeout(() => { this.isClicked = false }, 200);
             },
 
             updateShareLink() {
